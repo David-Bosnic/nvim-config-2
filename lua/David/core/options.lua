@@ -27,7 +27,6 @@ vim.opt.expandtab = true
 
 vim.opt.fillchars = { eob = " " }
 vim.opt.clipboard = "unnamedplus"
-
 vim.opt.smartindent = true
 
 vim.opt.wrap = false
@@ -42,7 +41,32 @@ vim.opt.incsearch = true
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-
 vim.opt.updatetime = 50
 
 vim.g.netrw_liststyle = 3
+
+vim.o.foldcolumn = "1"
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+	pattern = { "*.*" },
+	desc = "save view (folds), when closing file",
+	command = "mkview",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+	pattern = { "*.*" },
+	desc = "load view (folds), when opening file",
+	command = "silent! loadview",
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "lua",
+	callback = function()
+		vim.bo.tabstop = 3
+		vim.bo.shiftwidth = 3
+		vim.bo.softtabstop = 3
+		vim.bo.expandtab = true
+	end,
+})
