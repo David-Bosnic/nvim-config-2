@@ -4,11 +4,11 @@ vim.opt.cursorline = true
 
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
+    callback = function()
+        vim.highlight.on_yank()
+    end,
+    group = highlight_group,
+    pattern = "*",
 })
 
 vim.cmd([[function! IndentWithI()
@@ -51,22 +51,33 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
-	pattern = { "*.*" },
-	desc = "save view (folds), when closing file",
-	command = "mkview",
+    pattern = { "*.*" },
+    desc = "save view (folds), when closing file",
+    command = "mkview",
 })
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-	pattern = { "*.*" },
-	desc = "load view (folds), when opening file",
-	command = "silent! loadview",
+    pattern = { "*.*" },
+    desc = "load view (folds), when opening file",
+    command = "silent! loadview",
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "lua",
-	callback = function()
-		vim.bo.tabstop = 3
-		vim.bo.shiftwidth = 3
-		vim.bo.softtabstop = 3
-		vim.bo.expandtab = true
-	end,
+    pattern = "typescript",
+    callback = function()
+        vim.bo.tabstop = 2
+        vim.bo.shiftwidth = 2
+        vim.bo.softtabstop = 2
+        vim.bo.expandtab = true
+    end,
+})
+
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "lua",
+    callback = function()
+        vim.bo.tabstop = 4
+        vim.bo.shiftwidth = 4
+        vim.bo.softtabstop = 4
+        vim.bo.expandtab = true
+    end,
 })
